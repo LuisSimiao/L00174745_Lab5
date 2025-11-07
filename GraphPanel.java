@@ -71,9 +71,9 @@ public class GraphPanel extends JComponent {
 
     	
     	//NB:
-    	//We use an inOrderTraversal to find out and populate the 
+    	//We use computeNodePositions to find out and populate the 
     	//node positions (this is an overridden method in the subclass
-    	myTree.inOrderTraversal();
+    	myTree.computeNodePositions();
     	
     	
         g.setColor(new Color(0x00f0f0f0));
@@ -230,6 +230,7 @@ public class GraphPanel extends JComponent {
         	myTree.myRoot = null;
             nodes.clear();
             edges.clear();
+            insertionsInOrder.clear();
             repaint();
         }
     }
@@ -615,8 +616,9 @@ public class GraphPanel extends JComponent {
     			
     			//Remember that new nodes default to Red but
     			//the root must always be black
-    			//node.nodeColourRed = false;
-    			//return;
+    			node.nodeColourRed = false;
+    			super.root = myRoot;
+    			return;
     		}
     		else
     		{
@@ -629,7 +631,7 @@ public class GraphPanel extends JComponent {
     		super.root = myRoot;
     		//Now that we've inserted we need to make it Red-Black (if necessary)
     		super.handleRedBlack(node);
-    		myRoot = (BinarySearchTreeViewCapable<T>.MyNode)root;
+    		myRoot = (BinarySearchTreeViewCapable<T>.MyNode)super.root;
  
     		
     		
